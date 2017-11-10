@@ -74,7 +74,8 @@
             <div class="line"></div>
           </div>
           <div class="content">
-            <p>粥品香坊其烹饪粥料的秘方源于中国千年古法，在融和现代制作工艺，由世界烹饪大师屈浩先生领衔研发。坚守纯天然、0添加的良心品质深得消费者青睐，发展至今成为粥类的引领品牌。是2008年奥运会和2013年园博会指定餐饮服务商。</p>
+            <p>
+              粥品香坊其烹饪粥料的秘方源于中国千年古法，在融和现代制作工艺，由世界烹饪大师屈浩先生领衔研发。坚守纯天然、0添加的良心品质深得消费者青睐，发展至今成为粥类的引领品牌。是2008年奥运会和2013年园博会指定餐饮服务商。</p>
           </div>
         </div>
       </div>
@@ -93,7 +94,7 @@
   @import "../../common/stylus/mixins.styl"
   .header
     position relative
-    background-color rgba(7,17,27,0.5)
+    background-color rgba(7, 17, 27, 0.5)
     color #fff
     overflow hidden
     .content-wrapper
@@ -103,7 +104,7 @@
       .avatar
         width 64px
         height 64px
-        &>img
+        & > img
           width 100%
           height 100%
           border-radius 2px
@@ -153,28 +154,22 @@
             font-size 10px
             line-height 12px
             font-weight 200
-
-
-
       .supports_count
         position absolute
         right 12px
         bottom 18px
         height 24px
         padding 7px 8px
-        background-color rgba(0,0,0,0.2)
+        background-color rgba(0, 0, 0, 0.2)
         box-sizing border-box
         border-radius 8px
         line-height 10px
         font-size 10px
         font-weight 200
-
-
-
     .bulletin-wrapper
       position relative
       height 28px
-      background-color rgba(7,17,27,0.2)
+      background-color rgba(7, 17, 27, 0.2)
       padding 0 12px
       white-space nowrap
       overflow hidden
@@ -193,7 +188,7 @@
         margin 0 4px
         font-size 10px
         font-weight 200
-      &>.icon-keyboard_arrow_right
+      & > .icon-keyboard_arrow_right
         position absolute
         top: 6px
         right 7px
@@ -205,20 +200,18 @@
       width 100%
       height 100%
       z-index -1
-      &>img
+      & > img
         width 100%
         height 100%
         filter blur(10px)
 
-
     .detail
-
       position fixed
       top: 0
       left 0
       width 100%
       height 100%
-      background-color rgba(7,17,27,0.8)
+      background-color rgba(7, 17, 27, 0.8)
       z-index 10
       .detail-wrapper
         min-height 100%
@@ -233,7 +226,6 @@
           .star-wrapper
             width 100%
             height 24px
-
             display flex
             justify-content space-around
             .star24
@@ -241,7 +233,6 @@
               height 10px
               background-size 10px 10px
               background-repeat no-repeat
-
             .on
               bg-star(star24_on)
             .half
@@ -273,11 +264,7 @@
             .off
               bg-star(star48_off)
 
-
-
-
-
-  .title
+          .title
             margin-top 28px
             margin-bottom 24px
             display flex
@@ -286,7 +273,7 @@
             .line
               width 112px
               height 3px
-              background-color rgba(255,255,255,0.2)
+              background-color rgba(255, 255, 255, 0.2)
             .text
               font-size 14px
               font-weight 700
@@ -324,10 +311,9 @@
             line-height 24px
             font-weight 200
 
-
       .detail-close
         font-size 32px
-        color rgba(255,255,255,0.5)
+        color rgba(255, 255, 255, 0.5)
         margin-top -160px
         text-align center
 
