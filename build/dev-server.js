@@ -22,6 +22,37 @@ const autoOpenBrowser = !!config.dev.autoOpenBrowser
 const proxyTable = config.dev.proxyTable
 
 const app = express()
+
+// mock data start
+// 1. 加载json数据
+const apiData = require('../src/mock/data.json') // 自动将json对象转换为js对象
+// 2. 创建路由器
+const apiRouter = express.Router()
+// 3. 映射路由
+apiRouter.get('/goods', function (req, res, next) {
+  res.json({
+    code: 0, //0代表正确数据
+    data: apiData.goods
+  })
+})
+apiRouter.get('/ratings', function (req, res, next) {
+  res.json({
+    code: 0, //0代表正确数据
+    data: apiData.ratings
+  })
+})
+apiRouter.get('/seller', function (req, res, next) {
+  res.json({
+    code: 0, //0代表正确数据
+    data: apiData.seller
+  })
+})
+// 4. 启用路由器
+app.use('/api', apiRouter)   // /api/xxx
+// mock data end
+
+
+
 const compiler = webpack(webpackConfig)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
