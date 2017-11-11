@@ -2,7 +2,7 @@
     1. 初始化显示时出错:  
         Cannot read property 'xxx' of null    状态的初始值不是null, 只能是{}/[]
         Cannot read property 'xxx' of undefined    外围用v-if来判断(3层表达式)
-         
+    2. 创建好BScroll对象, 样式都生成了, 就是不能滑动
 
 # day01
 ## 1. 开发项目准备
