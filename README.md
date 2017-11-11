@@ -1,21 +1,36 @@
-# ele
+# day01
+## 1. 开发项目准备
+    如何描述项目: 功能/功能模块/主体用的什么技术/开发模块
+    技术选型: 数据展现与交互/前后台交互/模块化/工程化/滑动相关/代码检查
+    接口相关概念
+    
+## 2. 搭建项目骨架
+    vue-cli
+    vue
+    webpack
+    eslint
+    es6/babel
+    stylus
+      结构化编码
+      变量
+      函数
+      minxin
+    vue-router
+      如何拆分路由?
 
-> A Vue.js project
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## 3. header静态组件
+    使用stylus根据标注图实现移动端布局
+    1px边框问题
+    粘连(stiky footer)布局
+    flex布局
+    图标字体
+    2X, 3X图
+## 4. mock数据接口
+    前后台(端)分离
+    设计json数据
+    编码实现模拟接口: 
+        express: 可以使用浏览器/postman测试
+        mockjs: 数据可以随机生成, 打包发布也可以访问接口
+    ajax请求接口
+        vue-resource: vue1.x
+        axios: vue2.x
