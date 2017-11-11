@@ -1,3 +1,9 @@
+# 问题记录
+    1. 初始化显示时出错:  
+        Cannot read property 'xxx' of null    状态的初始值不是null, 只能是{}/[]
+        Cannot read property 'xxx' of undefined    外围用v-if来判断(3层表达式)
+         
+
 # day01
 ## 1. 开发项目准备
     如何描述项目: 功能/功能模块/主体用的什么技术/开发模块
