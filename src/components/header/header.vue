@@ -37,11 +37,7 @@
           <div class="detail-main">
             <div class="name">{{seller.name}}</div>
             <div class="star-wrapper">
-              <span class="star48 on"></span>
-              <span class="star48 on"></span>
-              <span class="star48 half"></span>
-              <span class="star48 half"></span>
-              <span class="star48 off"></span>
+              <star :score="seller.score" :size="48"></star>
             </div>
             <div class="title">
               <div class="line"></div>
@@ -75,6 +71,8 @@
 
 <script>
   import {mapState} from 'vuex'
+  import star from '../star/star.vue'
+
   export default {
 
     data () {
@@ -96,6 +94,10 @@
       toggleShow() {
         this.isShow = !this.isShow
       }
+    },
+
+    components: {
+      star
     }
   }
 </script>
@@ -242,42 +244,6 @@
             height 24px
             display flex
             justify-content space-around
-            .star24
-              width 10px
-              height 10px
-              background-size 10px 10px
-              background-repeat no-repeat
-            .on
-              bg-star(star24_on)
-            .half
-              bg-star(star24_half)
-            .off
-              bg-star(star24_off)
-
-            .star36
-              width 15px
-              height 15px
-              background-size 15px 15px
-              background-repeat no-repeat
-            .on
-              bg-star(star36_on)
-            .half
-              bg-star(star36_half)
-            .off
-              bg-star(star36_off)
-
-            .star48
-              width 20px
-              height 20px
-              background-size 20px 20px
-              background-repeat no-repeat
-            .on
-              bg-star(star48_on)
-            .half
-              bg-star(star48_half)
-            .off
-              bg-star(star48_off)
-
           .title
             margin-top 28px
             margin-bottom 24px
