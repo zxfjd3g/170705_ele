@@ -35,6 +35,9 @@
           const result = response.data
           console.log('axios', result)
         })
+
+      // 通过dispath()来触发action调用获取后台seller数据
+      this.$store.dispatch('getSeller')
     },
 
     components: {

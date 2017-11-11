@@ -34,3 +34,7 @@
     ajax请求接口
         vue-resource: vue1.x
         axios: vue2.x
+        
+# day02
+## 1. header动态组件
+## 2. goods组件

@@ -87,7 +87,16 @@
 </template>
 
 <script>
-  export default {}
+  import {mapState} from 'vuex'
+  export default {
+    // computed: mapState(['seller'])
+    computed: {
+      /*seller () {
+        return this.$store.state.seller
+      }*/
+      ...mapState(['seller'])
+    }
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
