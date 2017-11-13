@@ -5,7 +5,7 @@
         <ul>
           <!--current-->
           <li class="menu-item" v-for="(good, index) in goods"
-              :key="index" :class="{current: index===currentIndex}">
+              :key="index" :class="{current: index===currentIndex}" @click="clickMenuItem(index)">
             <span class="text border-1px">
               <span class="icon" v-if="good.type>=0" :class="supportClasses[good.type]"></span>{{good.name}}
             </span>
@@ -72,16 +72,21 @@
       _initScroll () {
         // 创建分类列表的scroll对象
         const menuScroll = new BScroll(this.$refs.menuWrapper, {
-
+          click: true //分发点击事件
         })
         // 创建食物列表的scroll对象
-        const foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
           probeType: 2 //实时派发scroll事件(必须是用户操作)
         })
 
         // 给foodsScroll绑定scroll监听
-        foodsScroll.on('scroll', (event) => {
-            console.log(event.y)
+        this.foodsScroll.on('scroll', (event) => {
+          console.log(event.y)
+          this.scrollY = Math.abs(event.y)
+        })
+        // 给foodsScroll绑定scrollend监听
+        this.foodsScroll.on('scrollEnd', (event) => {
+          console.log("scrollend", event.y)
           this.scrollY = Math.abs(event.y)
         })
       },
@@ -98,6 +103,14 @@
         // 更新状态
         this.tops = tops
         console.log(this.tops)
+      },
+
+      clickMenuItem (index) {
+        console.log('clickMenuItem()', index)
+        // 右侧平滑滚动到指定的位置
+        this.foodsScroll.scrollTo(0, -this.tops[index], 300)
+        // 指定最终scrollY
+        this.scrollY = this.tops[index]
       }
     },
 

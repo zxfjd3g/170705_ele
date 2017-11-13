@@ -89,6 +89,7 @@
     1. goods组件
         滑动右侧列表, 左侧当前分类样式变化
         点击左侧一个分类项, 右侧列表滑动到对应的分类的food列表
+        
     2. cartcontrol组件
     3. shopcart组件
     4. food组件
