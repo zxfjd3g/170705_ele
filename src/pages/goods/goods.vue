@@ -4,7 +4,8 @@
       <div class="menu-wrapper" ref="menuWrapper">
         <ul>
           <!--current-->
-          <li class="menu-item" v-for="(good, index) in goods" :key="index">
+          <li class="menu-item" v-for="(good, index) in goods"
+              :key="index" :class="{current: index===currentIndex}">
             <span class="text border-1px">
               <span class="icon" v-if="good.type>=0" :class="supportClasses[good.type]"></span>{{good.name}}
             </span>
@@ -50,6 +51,8 @@
     data () {
       return {
         supportClasses: ['decrease', 'discount', 'guarantee', 'invoice', 'special'],
+        scrollY: 0,
+        tops: []
       }
     },
     mounted() {
@@ -59,22 +62,56 @@
         }, 10)*/
         // 界面更新显示之后才调用回调函数
         this.$nextTick(() => {
-          this.initScroll()
+          this._initScroll()
+          this._initTops()
         })
       })
     },
 
     methods: {
-      initScroll () {
+      _initScroll () {
         // 创建分类列表的scroll对象
-        const menuScroll = new BScroll(this.$refs.menuWrapper)
+        const menuScroll = new BScroll(this.$refs.menuWrapper, {
+
+        })
         // 创建食物列表的scroll对象
-        const foodsScroll = new BScroll(this.$refs.foodsWrapper)
+        const foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+          probeType: 2 //实时派发scroll事件(必须是用户操作)
+        })
+
+        // 给foodsScroll绑定scroll监听
+        foodsScroll.on('scroll', (event) => {
+            console.log(event.y)
+          this.scrollY = Math.abs(event.y)
+        })
+      },
+
+      _initTops () {
+        const tops = []
+        let top = 0
+        tops.push(top)
+        const lis = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook')
+        Array.prototype.slice.call(lis).forEach(li => {
+          top += li.clientHeight
+          tops.push(top)
+        })
+        // 更新状态
+        this.tops = tops
+        console.log(this.tops)
       }
     },
 
     computed: {
-      ... mapState(['goods'])
+      ... mapState(['goods']),
+      currentIndex () {
+        const {scrollY, tops} = this
+        // 拿scrollY与当前top和下一个top: scrollY>=top && scrollY<nextTop
+        const index = tops.findIndex((top, index)=> {
+          return scrollY>=top && scrollY<tops[index+1]
+        })
+        console.log('currentIndex()', index)
+        return index
+      }
     }
   }
 </script>
