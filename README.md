@@ -3,6 +3,8 @@
         Cannot read property 'xxx' of null    状态的初始值不是null, 只能是{}/[]
         Cannot read property 'xxx' of undefined    外围用v-if来判断(3层表达式)
     2. 创建好BScroll对象, 样式都生成了, 就是不能滑动
+        原因: 创建BScroll对象时, 列表没有显示(状态已经更新, 但列表更新是异步的, 所有还有显示)
+        解决: 在列表更新之后才创建BScroll对象: this.$nextTick(() => {创建BScroll对象})
 
 # day01
 ## 1. 开发项目准备
@@ -40,7 +42,43 @@
     ajax请求接口
         vue-resource: vue1.x
         axios: vue2.x
-        
+
 # day02
 ## 1. header动态组件
-## 2. goods组件
+    1). 使用vuex管理状态
+      store/index | state | mutations | actions | getters | mutation-types
+    2). 发ajax请求
+      api/index: 包含所有发ajax请求获取数据的代码(但并不读取数据)
+    3). 组件获取后台数据显示
+      在mounted()中, 通过this.$store.dispatch('getSeller')
+      在computed中, 使用mapState获取seller作为组件的计算属性
+      在模块中直接访问seller中的数据
+    4). 基本transition动画
+    
+## 2. star组件
+    1). 组件的作用
+        简化界面功能开发
+        复用
+    2). 编写组件的基本流程
+        定义vue文件
+        分析确定props/state
+        使用组件: 写它的标签<Xxx a="" b=""/>    
+        组件内部的实现
+            显示初始化数据
+            交互
+    3). 计算属性
+        state/data
+        props
+        计算属性 
+        
+## 3. goods组件
+    1). 使用vuex获取后台数据 , 更新状态, 读取数据展现
+    2). 使用better-scroll实现滑动
+        滑动的基本原理: 
+           什么情况下才会形成滚动?
+           创建Bscroll对象后, 不能形成滚动什么原因?
+           Bscroll如何让内部部分滑动的: 在内容标签上添加style改变translateY()
+    3). 如何在vue项目中使用第三库
+        下载: npm install xxx --save
+        根据文档/demo来使用这个库
+    
