@@ -32,7 +32,8 @@
                     <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-                    <cartcontrol :food="food" :updateFoodCount="updateFoodCount"></cartcontrol>
+                    <!--<cartcontrol :food="food" :updateFoodCount="updateFoodCount"></cartcontrol>-->
+                    <cartcontrol :food="food"></cartcontrol>
                   </div>
                 </div>
               </li>
@@ -40,6 +41,7 @@
           </li>
         </ul>
       </div>
+      <shopcart></shopcart>
     </div>
   </div>
 </template>
@@ -49,6 +51,7 @@
   import BScroll from 'better-scroll'
 
   import cartcontrol from '../../components/cartcontrol/cartcontrol.vue'
+  import shopcart from '../../components/shopcart/shopcart.vue'
 
   export default {
 
@@ -118,7 +121,7 @@
         this.scrollY = this.tops[index]
       },
 
-      updateFoodCount (food, isAdd) {
+      /*updateFoodCount (food, isAdd) {
         console.log('updateFoodCount()', isAdd)
         if(isAdd) { // 加1
           if(food.count) {
@@ -132,7 +135,7 @@
             food.count--
           }
         }
-      }
+      }*/
     },
 
     computed: {
@@ -149,7 +152,8 @@
     },
 
     components: {
-      cartcontrol
+      cartcontrol,
+      shopcart
     }
   }
 </script>

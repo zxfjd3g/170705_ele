@@ -2,13 +2,13 @@
   <div class="cartcontrol">
     <transition name="move">
       <div class="cart-decrease icon-remove_circle_outline"
-           v-show="food.count" @click="updateFoodCount(food, false)"></div>
+           v-show="food.count" @click="updateFoodCount(false)"></div>
     </transition>
 
 
 
     <div class="cart-count" v-show="food.count">{{food.count}}</div>
-    <div class="cart-add icon-add_circle" @click="updateFoodCount(food, true)"></div>
+    <div class="cart-add icon-add_circle" @click="updateFoodCount(true)"></div>
   </div>
 </template>
 
@@ -16,7 +16,13 @@
   export default {
     props: {
       food: Object,
-      updateFoodCount: Function
+    },
+
+    methods: {
+      updateFoodCount (isAdd) {
+        const {food} = this
+        this.$store.dispatch('updateFoodCount', {food, isAdd})
+      }
     }
   }
 </script>

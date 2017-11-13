@@ -1,5 +1,11 @@
 import {reqSeller, reqGoods, reqRatings, RESULT_OK} from '../api'
-import {RECEIVE_GOODS, RECEIVE_RATINGS, RECEIVE_SELLER} from './mutation-types'
+import {
+  RECEIVE_GOODS,
+  RECEIVE_RATINGS,
+  RECEIVE_SELLER,
+  INCREMENT_FOOD_COUNT,
+  DECREMENT_FOOD_COUNT
+} from './mutation-types'
 
 export default {
 
@@ -43,4 +49,13 @@ export default {
       }
     })
   },
+
+  // 更新food的数量
+  updateFoodCount({commit}, {food, isAdd}) {
+    if(isAdd) { // 加1
+      commit(INCREMENT_FOOD_COUNT, {food})
+    } else { // 减1
+      commit(DECREMENT_FOOD_COUNT, {food})
+    }
+  }
 }
