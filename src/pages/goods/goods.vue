@@ -31,7 +31,9 @@
                     <span class="now">￥{{food.price}}</span>
                     <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
-                  <div class="cartcontrol-wrapper">cartcontrol组件</div>
+                  <div class="cartcontrol-wrapper">
+                    <cartcontrol :food="food" :updateFoodCount="updateFoodCount"></cartcontrol>
+                  </div>
                 </div>
               </li>
             </ul>
@@ -45,6 +47,8 @@
 <script>
   import {mapState} from 'vuex'
   import BScroll from 'better-scroll'
+
+  import cartcontrol from '../../components/cartcontrol/cartcontrol.vue'
 
   export default {
 
@@ -76,6 +80,7 @@
         })
         // 创建食物列表的scroll对象
         this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+          click: true, //分发点击事件
           probeType: 2 //实时派发scroll事件(必须是用户操作)
         })
 
@@ -111,6 +116,22 @@
         this.foodsScroll.scrollTo(0, -this.tops[index], 300)
         // 指定最终scrollY
         this.scrollY = this.tops[index]
+      },
+
+      updateFoodCount (food, isAdd) {
+        console.log('updateFoodCount()', isAdd)
+        if(isAdd) { // 加1
+          if(food.count) {
+            food.count++
+          } else { // 第一次
+            // food.count = 1  //给food添加count属性, 值为1    没有数据绑定, 界面不会更新
+            this.$set(food, 'count', 1)  // 新加的属性就有了数据绑定, 界面就会更新
+          }
+        } else { // 减1
+          if(food.count) {
+            food.count--
+          }
+        }
       }
     },
 
@@ -125,6 +146,10 @@
         console.log('currentIndex()', index)
         return index
       }
+    },
+
+    components: {
+      cartcontrol
     }
   }
 </script>
