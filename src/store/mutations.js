@@ -4,7 +4,8 @@ import {
   RECEIVE_GOODS,
   RECEIVE_RATINGS,
   INCREMENT_FOOD_COUNT,
-  DECREMENT_FOOD_COUNT
+  DECREMENT_FOOD_COUNT,
+  CLEAR_CART
 } from './mutation-types'
 export default {
   [RECEIVE_SELLER] (state, {seller}) {
@@ -32,5 +33,9 @@ export default {
     if(food.count) {
       food.count--
     }
+  },
+
+  [CLEAR_CART] (state, {foodList}) {
+    foodList.forEach(food => food.count = 0)
   }
 }

@@ -14,10 +14,12 @@ export default {
     return foods
   },
 
+  // 购物车中food的总数量
   totalCount (state, getters) {
     return getters.foodList.reduce((preTotal, food) => preTotal + food.count, 0)
   },
 
+  // 购物车中food的总价格
   totalPrice (state, getters) {
     return getters.foodList.reduce((preTotal, food) => preTotal + food.count*food.price, 0)
   }

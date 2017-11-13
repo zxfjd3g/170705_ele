@@ -12,7 +12,7 @@
           <div class="price">￥{{totalPrice}}</div>
           <div class="desc">另需配送费￥{{seller.deliveryPrice}}元</div>
         </div>
-        <div class="content-right">
+        <div class="content-right" @click="pay">
           <div class="pay" :class="payClass">
             {{payText}}
           </div>
@@ -24,7 +24,7 @@
         <div class="shopcart-list" v-show="listShow">
           <div class="list-header">
             <h1 class="title">购物车</h1>
-            <span class="empty">清空</span>
+            <span class="empty" @click="clear">清空</span>
           </div>
 
           <div class="list-content" ref="shopList">
@@ -63,6 +63,22 @@
     methods: {
       toggleShow () {
         this.isShow = !this.isShow
+      },
+
+      clear () {
+        if(confirm('确认清除购物车吗?')) {
+          this.$store.dispatch('clearCart', this.foodList)
+        }
+      },
+
+      pay () {
+        const {totalPrice} = this
+        const {minPrice, deliveryPrice} = this.seller
+        if(totalPrice>=minPrice) {
+          alert(`支付${totalPrice+deliveryPrice}`)
+        } else {
+          alert('未达到起送价, 无法配送!')
+        }
       }
     },
 

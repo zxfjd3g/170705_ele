@@ -4,7 +4,8 @@ import {
   RECEIVE_RATINGS,
   RECEIVE_SELLER,
   INCREMENT_FOOD_COUNT,
-  DECREMENT_FOOD_COUNT
+  DECREMENT_FOOD_COUNT,
+  CLEAR_CART
 } from './mutation-types'
 
 export default {
@@ -57,5 +58,10 @@ export default {
     } else { // 减1
       commit(DECREMENT_FOOD_COUNT, {food})
     }
+  },
+
+  // 清空购物车
+  clearCart ({commit}, foodList) {
+    commit(CLEAR_CART, {foodList})
   }
 }
