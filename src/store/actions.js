@@ -39,7 +39,7 @@ export default {
   },
 
   // 获取评价列表信息
-  getRatings({commit}) {
+  getRatings({commit}, cb) {
     // 发送ajax请求, 获取ratings数据
     reqRatings().then(response => {
       const result = response.data
@@ -47,6 +47,8 @@ export default {
         const ratings = result.data
         // 提交mutaion请求
         commit(RECEIVE_RATINGS, {ratings})
+
+        cb && cb()
       }
     })
   },
