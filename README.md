@@ -96,24 +96,29 @@
         根据文档/demo来使用这个库
 
 # day03
-    1. goods组件
-        滑动右侧列表, 左侧当前分类样式变化
-        点击左侧一个分类项, 右侧列表滑动到对应的分类的food列表
-        
-        根据功能分析出与这个功能相关的点
-            滑动的监听, 获取滑动的Y坐标: scrollY
-            设计一个计算属性来确定current类所在的下标: currentIndex
-            currentIndex属性相关的因素:
-                scrollY: 滑动时回调函数动态指定它的值
-                tops数组: 在列表显示后立即就可以统计出来
-                通过数组的findIndex()来确定下标值
+## 1. goods组件
+    滑动右侧列表, 左侧当前分类样式变化
+    点击左侧一个分类项, 右侧列表滑动到对应的分类的food列表
+    
+    根据功能分析出与这个功能相关的点
+        滑动的监听, 获取滑动的Y坐标: scrollY
+        设计一个计算属性来确定current类所在的下标: currentIndex
+        currentIndex属性相关的因素:
+            scrollY: 滑动时回调函数动态指定它的值
+            tops数组: 在列表显示后立即就可以统计出来
+            通过数组的findIndex()来确定下标值
                 
-    2. cartcontrol组件
-        只使用vue和使用vuex在编码上的区别
-        熟悉vuex编码
+## 2. cartcontrol组件
+    只使用vue和使用vuex在编码上的区别
+    熟悉vuex编码
         
-    3. shopcart组件
-        BScroll对象的创建和刷新
-        transition动画
+## 3. shopcart组件
+    BScroll对象的创建和刷新
+    transition动画
         
-    4. food组件
+# day04
+## 1. food组件
+  
+## 2. ratingselect组件
+## 3. ratings组件
+## 4. seller组件

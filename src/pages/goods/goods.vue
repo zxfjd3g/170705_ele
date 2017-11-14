@@ -17,7 +17,8 @@
           <li class="food-list food-list-hook" v-for="(good, index) in goods" :key="index">
             <h1 class="title">{{good.name}}</h1>
             <ul>
-              <li class="food-item border-1px" v-for="(food, index) in good.foods" :key="index">
+              <li class="food-item border-1px" v-for="(food, index) in good.foods"
+                  :key="index" @click="showFood(food)">
                 <div class="icon">
                   <img width="57" height="57" :src="food.icon">
                 </div>
@@ -43,6 +44,7 @@
       </div>
       <shopcart></shopcart>
     </div>
+    <food :food="food" ref="food"></food>
   </div>
 </template>
 
@@ -52,6 +54,7 @@
 
   import cartcontrol from '../../components/cartcontrol/cartcontrol.vue'
   import shopcart from '../../components/shopcart/shopcart.vue'
+  import food from 'components/food/food.vue'
 
   export default {
 
@@ -59,7 +62,8 @@
       return {
         supportClasses: ['decrease', 'discount', 'guarantee', 'invoice', 'special'],
         scrollY: 0,
-        tops: []
+        tops: [],
+        food: {}
       }
     },
     mounted() {
@@ -136,6 +140,13 @@
           }
         }
       }*/
+
+      showFood (food) {
+        // 更新food状态
+        this.food = food
+        // 显示food
+        this.$refs.food.toggleShow()
+      }
     },
 
     computed: {
@@ -153,7 +164,8 @@
 
     components: {
       cartcontrol,
-      shopcart
+      shopcart,
+      food
     }
   }
 </script>
