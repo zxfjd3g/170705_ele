@@ -4,6 +4,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+import './filters'
 import './mock/mockServer'
 import './common/stylus/fonts.styl'
 

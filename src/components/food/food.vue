@@ -34,15 +34,21 @@
 
         <div class="rating">
           <h1 class="title">商品评价</h1>
-          <div>ratingselect组件</div>
+          <ratingselect :selectType="selectType"
+                        :onlyContent="onlyContent"
+                        :ratings="food.ratings"
+                        :desc="{all: '全部', positive: '推荐', negative: '吐槽'}"
+                        @setSelectType="setSelectType"
+                        @toggleOnlyContent="toggleOnlyContent"/>
           <div class="rating-wrapper">
             <ul>
-              <li class="rating-item border-1px" v-for="(rating, index) in food.ratings" :key="index">
+              <li class="rating-item border-1px" v-for="(rating, index) in filterRatings" :key="index">
                 <div class="user">
                   <span class="name">{{rating.username}}</span>
                   <img width="12" height="12" :src="rating.avatar" class="avatar">
                 </div>
-                <div class="time">{{rating.rateTime}}</div>
+                <div class="time">{{rating.rateTime | date-string}}</div>
+                <!--<div class="time">{{rating.rateTime | date-string('YYYY-MM-DD')}}</div>-->
                 <p class="text">
                   <span :class="rating.rateType===0 ? 'icon-thumb_up' : 'icon-thumb_down'"></span>
                   {{rating.text}}
@@ -63,6 +69,7 @@
   import BScroll from 'better-scroll'
   import cartcontrol from '../cartcontrol/cartcontrol.vue'
   import split from '../split/split.vue'
+  import ratingselect from '../ratingselect/ratingselect.vue'
 
   export default {
     props: {
@@ -71,7 +78,9 @@
 
     data() {
       return {
-        isShow: false
+        isShow: false,
+        selectType: 0,
+        onlyContent: true
       }
     },
 
@@ -90,12 +99,55 @@
             }
           })
         }
+      },
+
+      setSelectType (selectType) {
+        this.selectType = selectType
+        // 异步通知scroll对象去更新
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
+      },
+
+      toggleOnlyContent () {
+        this.onlyContent = !this.onlyContent
+        // 异步通知scroll对象去更新
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
+      }
+    },
+
+    computed: {
+      filterRatings () {
+        const {ratings} = this.food
+        // 如果还没有数据, 直接返回一个空数组
+        if(!ratings) {
+          return []
+        }
+        const {selectType, onlyContent} = this
+
+        return ratings.filter(rating => {
+          /*
+          条件1: selectType与rating.rateType
+              rating.rateType: 0/1
+              selectType: 0/1/2
+              selectType==2 || selectType===rating.rateType
+          条件2: onlyContent与rating.text
+              rating.text: 有值/没有值('')
+              onlyContent: true/false
+              !onlyContent || rating.text.length>0
+           */
+
+          return (selectType==2 || selectType===rating.rateType) && (!onlyContent || rating.text.length>0)
+        })
       }
     },
 
     components: {
       cartcontrol,
-      split
+      split,
+      ratingselect
     }
   }
 </script>
