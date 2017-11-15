@@ -167,8 +167,13 @@
     Vue.use(VueScroller)
     <scroller>列表div</scroller>
 
-## 5. vue UI库使用: mint-ui/element-ui
-
+## 5. vue UI库使用: mint-ui/element-ui/iview
+     引入mint-ui
+     实现自动打包使用的组件和样式
+     组件的分类
+        标签组件
+        函数组件
+        
 ## 6. 百度地图
 
 ## 7. 短信验证码登陆
