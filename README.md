@@ -147,10 +147,25 @@
 ## 1. 小球动画
 
 ## 2. 路由组件缓存与懒加载
-
+    路由组件缓存: 
+        <keep-alive><router-view/></keep-alive>
+    懒加载: 
+        import goods from '../pages/goods/goods.vue'
+        const goods = () => import('../pages/goods/goods.vue')
 ## 3. 图片懒加载: vue-lazyload
-
+    npm install --save vue-lazyload
+    import VueLazyload from 'vue-lazyload'
+    import loading from './common/imgs/loading.gif'
+    Vue.use(VueLazyload, {
+      loading
+    }) // 内部会自定义一个全局指令 lazy来实现图片懒加载
+    <img v-lazy="food.image">
+    
 ## 4. 滑动效果: vue-scroller
+    npm install --save vue-scroller@2.2.1
+    import VueScroller from 'vue-scroller'
+    Vue.use(VueScroller)
+    <scroller>列表div</scroller>
 
 ## 5. vue UI库使用: mint-ui/element-ui
 
@@ -160,3 +175,4 @@
 
 
 # [重要点截图文档](doc.md)
+
