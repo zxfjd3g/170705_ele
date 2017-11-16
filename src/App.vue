@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div>
+      手机号: <input type="text" v-model="phone"><br>
+      验证码: <input type="text" v-model="code">
+      <button @click="sendCode">发送验证码</button><br>
+      <button @click="login">登陆</button>
+    </div>
+
     <ele-header/>
     <div class="tab">
       <div class="tab-item">
@@ -23,6 +30,33 @@
   import header from './components/header/header.vue'
 
   export default {
+    data () {
+      return {
+        phone: '',
+        code: ''
+      }
+    },
+    methods: {
+      sendCode () {
+        const url = `/sendcode?phone=${this.phone}`
+        axios.get(url).then(response => {
+          alert(response.data.code) // 0
+        })
+      },
+
+      login () {
+        axios.post('/login', {phone: this.phone, code: this.code}).then(response => {
+          console.log('login result ', response.data)
+          const result = response.data
+          if (result.code == 0) {
+            const user = result.data
+            alert(`登陆成功: ${user.phone}`)
+          } else {
+            alert(`登陆失败, 请输入正确的手机号和验证码`)
+          }
+        })
+      },
+    },
 
     mounted(){
       // 使用vue-resource发送ajax请求express提供mock接口

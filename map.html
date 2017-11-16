@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>百度地图测试</title>
+  <style type="text/css">
+    body, html, #allmap {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      font-family: "微软雅黑";
+    }
+  </style>
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=UGDIX8dCit1BAU4zssiPLkLuYhwPW4nm"></script>
+</head>
+<body>
+<div id="allmap"></div>
+</body>
+<script type="text/javascript">
+  // 百度地图API功能
+  var map = new BMap.Map("allmap");    // 创建Map实例
+  map.centerAndZoom(new BMap.Point(116.40387397,39.91488908), 20);  // 初始化地图,设置中心点坐标和地图级别
+
+  // 创建地址解析器实例
+  var myGeo = new BMap.Geocoder();
+  // 将地址解析结果显示在地图上,并调整地图视野
+  myGeo.getPoint("北京市昌平区宏福科技园", function(point){
+    if (point) {
+      map.centerAndZoom(point, 20);
+    }else{
+      alert("您选择地址没有解析到结果!");
+    }
+  }, "北京市");
+</script>
+</html>
