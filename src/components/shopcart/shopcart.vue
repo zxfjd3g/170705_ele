@@ -18,7 +18,19 @@
           </div>
         </div>
       </div>
-      <div class="ball-container"></div>
+      <div class="ball-container">
+        <transition v-for="(ball, index) in balls"
+                    :key="index"
+                    @before-enter="beforeDrop"
+                    @enter="drop"
+                    @after-enter="afterDrop"
+                    :css="false">
+          <div class="ball" v-show="ball.isShow">
+            <div class="inner inner-hook"></div>
+          </div>
+        </transition>
+
+      </div>
 
       <transition name="slide">
         <div class="shopcart-list" v-show="listShow">
@@ -49,6 +61,7 @@
 </template>
 
 <script>
+  import PubSub from 'pubsub-js'
   import {MessageBox, Toast} from 'mint-ui'
   import BScroll from 'better-scroll'
   import {mapState, mapGetters} from 'vuex'
@@ -58,11 +71,96 @@
 
     data () {
       return {
-        isShow: false
+        isShow: false,
+        balls: [
+          {isShow: false},
+          {isShow: false},
+          {isShow: false},
+          {isShow: false},
+          {isShow: false},
+          {isShow: false}
+        ],
+        droppingBalls: []  // 保存isShow为true的ball
       }
+    },
+    
+    
+    mounted () {
+      // 订阅消息(startBallDrop)
+      PubSub.subscribe('startBallDrop', (msg, startEl) => {
+        // 找到一个隐藏的小球(对应的ball对象)
+        const ball = this.balls.find(ball => {
+          return !ball.isShow
+        })
+        // 显示小球
+        if(ball) {
+          ball.isShow = true
+          // 保存对应的startEl
+          ball.startEl = startEl
+          // 保存ball到droppingBalls
+          this.droppingBalls.push(ball)
+        } else {
+          console.log('没有ball了')
+        }
+      })
     },
 
     methods: {
+      /*
+      回调函数关注2个点:
+      1. 什么时候调用?
+      2. 做什么事?
+      */
+      // 在开始进入之前调用, 确定动画起始时的样式状态
+      beforeDrop (el) {
+        console.log('beforeDrop()')
+        const ball = this.droppingBalls.shift() // 从数组中删除第一个并返回它
+        const startEl = ball.startEl
+
+        // 计算偏移量
+        let offsetY = 0
+        let offsetX = 0
+        const elLeft = 32
+        const elBottom = 22
+        const {left, top} = startEl.getBoundingClientRect()
+        offsetX = left - elLeft
+        offsetY = -(window.innerHeight - elBottom - top)
+
+        // 指定样式
+        el.style.transform = `translateY(${offsetY}px)`
+        el.children[0].style.transform = `translateX(${offsetX}px)`
+
+        // 保存ball
+        el.ball = ball
+      },
+
+      // 在开始进入进调用, 确定动画结束时的样式状态
+      drop (el) {
+        console.log('drop()')
+
+        // 强制重排重绘
+        const temp = el.clientHeight
+        //必须异步执行
+        this.$nextTick(() => {
+          // 指定样式
+          el.style.transform = `translateY(0)`
+          el.children[0].style.transform = `translateX(0)`
+        })
+
+      },
+
+      // 在动画结束之后调用, 做一些收尾工作(隐藏小球)
+      afterDrop (el) { // 立即调用了
+        console.log('afterDrop()')
+
+        // 样式中指定的隐藏过渡时间没用了, 手动指定延迟隐藏
+        // el.ball.isShow = false  // 立即隐藏
+        setTimeout(() => {
+          el.ball.isShow = false
+        }, 400)
+      },
+
+
       toggleShow () {
         this.isShow = !this.isShow
       },
